@@ -695,6 +695,7 @@ export const AdminProductForm = () => {
                         alt={`Perfume View ${index + 1}`}
                         className="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
                         onError={(e) => {
+                          e.currentTarget.onerror = null;
                           e.currentTarget.src = '/images/perfumes/kashmir-saffron-amber.svg';
                         }}
                       />

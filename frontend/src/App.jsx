@@ -32,15 +32,17 @@ import { AdminCoupons } from './admin/AdminCoupons';
 import { AdminSettings } from './admin/AdminSettings';
 
 import { IntroAnimation } from './components/IntroAnimation';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 export function App() {
   return (
-    <SettingsProvider>
-      <AuthProvider>
-        <CartProvider>
-          <WishlistProvider>
-            <IntroAnimation />
-            <Routes>
+    <ErrorBoundary>
+      <SettingsProvider>
+        <AuthProvider>
+          <CartProvider>
+            <WishlistProvider>
+              <IntroAnimation />
+              <Routes>
               {/* Public Customer Storefront */}
               <Route path="/" element={<Home />} />
               <Route path="/shop" element={<Shop />} />
@@ -78,6 +80,7 @@ export function App() {
         </CartProvider>
       </AuthProvider>
     </SettingsProvider>
+  </ErrorBoundary>
   );
 }
 

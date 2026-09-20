@@ -72,6 +72,11 @@ if (fs.existsSync(frontendDistPath)) {
   });
 }
 
+// 404 handler for undefined API routes
+app.all('/api/*', (req, res) => {
+  res.status(404).json({ error: `API route not found: ${req.method} ${req.originalUrl}` });
+});
+
 // Global Error Handler
 app.use((err, req, res, next) => {
   console.error('Unhandled server error:', err);

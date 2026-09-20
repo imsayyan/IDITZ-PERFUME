@@ -93,6 +93,7 @@ export const ProductCard = ({ product, onQuickView }) => {
               isOutOfStock ? 'opacity-60 grayscale-[30%]' : ''
             }`}
             onError={(e) => {
+              e.currentTarget.onerror = null;
               e.currentTarget.src = '/images/perfumes/kashmir-saffron-amber.svg';
             }}
           />

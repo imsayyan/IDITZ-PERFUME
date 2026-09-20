@@ -153,7 +153,7 @@ export const AdminProducts = () => {
                           src={imgUrl}
                           alt={prod.name}
                           className="w-12 h-14 object-contain bg-luxury-ivory border border-luxury-lightBorder p-1"
-                          onError={(e) => { e.currentTarget.src = '/images/perfumes/kashmir-saffron-amber.svg'; }}
+                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/images/perfumes/kashmir-saffron-amber.svg'; }}
                         />
                       </td>
 
@@ -255,7 +255,7 @@ export const AdminProducts = () => {
                     src={imgUrl}
                     alt={prod.name}
                     className="w-16 h-20 object-contain bg-luxury-ivory border border-luxury-lightBorder p-1 flex-shrink-0"
-                    onError={(e) => { e.currentTarget.src = '/images/perfumes/kashmir-saffron-amber.svg'; }}
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/images/perfumes/kashmir-saffron-amber.svg'; }}
                   />
                   <div className="flex-1 min-w-0">
                     <h3 className="font-serif font-bold text-sm text-luxury-black truncate">{prod.name}</h3>
