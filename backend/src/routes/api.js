@@ -68,4 +68,9 @@ router.put('/admin/inventory/:id', requireAdmin, inventoryController.updateStock
 // Admin Settings
 router.put('/admin/settings', requireAdmin, settingsController.updateSettings);
 
+// 404 for unhandled API routes
+router.use((req, res) => {
+  res.status(404).json({ error: `API route not found: ${req.method} ${req.originalUrl}` });
+});
+
 export default router;

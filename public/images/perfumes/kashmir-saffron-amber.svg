@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="1000" viewBox="0 0 800 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#FAF8F5" />
+      <stop offset="60%" stop-color="#EFE8DF" />
+      <stop offset="100%" stop-color="#E2D8CA" />
+    </radialGradient>
+
+    <!-- Liquid Gradient -->
+    <linearGradient id="liquidGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C97A1E" stop-opacity="0.9" />
+      <stop offset="70%" stop-color="#5A2A04" stop-opacity="0.96" />
+      <stop offset="100%" stop-color="#0F0E0E" stop-opacity="0.98" />
+    </linearGradient>
+
+    <!-- Glass Highlights & Sheen -->
+    <linearGradient id="glassSheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.5" />
+      <stop offset="15%" stop-color="#FFFFFF" stop-opacity="0.1" />
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.0" />
+      <stop offset="85%" stop-color="#FFFFFF" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.6" />
+    </linearGradient>
+
+    <!-- Metallic Cap Gradient -->
+    <linearGradient id="capGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8C6D46" />
+      <stop offset="25%" stop-color="#C5A880" />
+      <stop offset="45%" stop-color="#FFF5E4" />
+      <stop offset="70%" stop-color="#C5A880" />
+      <stop offset="100%" stop-color="#8C6D46" />
+    </linearGradient>
+
+    <!-- Label Metallic Foil -->
+    <linearGradient id="goldFoil" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#9A7B54" />
+      <stop offset="30%" stop-color="#DFCAAE" />
+      <stop offset="50%" stop-color="#FFF3E0" />
+      <stop offset="70%" stop-color="#C5A880" />
+      <stop offset="100%" stop-color="#8C6D46" />
+    </linearGradient>
+
+    <!-- Soft Drop Shadow Filter -->
+    <filter id="bottleShadow" x="100" y="780" width="600" height="180" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="30" />
+    </filter>
+  </defs>
+
+  <!-- Studio Background -->
+  <rect width="800" height="1000" fill="url(#bgGrad)" />
+
+  <!-- Studio Ambient Floor Reflection Ring -->
+  <ellipse cx="400" cy="880" rx="260" ry="40" fill="#000000" opacity="0.18" filter="url(#bottleShadow)" />
+  <ellipse cx="400" cy="870" rx="190" ry="22" fill="#000000" opacity="0.28" filter="url(#bottleShadow)" />
+
+  <!-- Subtle Indian Paisley / Geometric Watermark in Background -->
+  <g opacity="0.03" stroke="#C5A880" stroke-width="1.5">
+    <circle cx="400" cy="450" r="320" stroke-dasharray="8 8" />
+    <circle cx="400" cy="450" r="240" />
+    <circle cx="400" cy="450" r="160" stroke-dasharray="4 4" />
+  </g>
+
+  <!-- ================= PERFUME BOTTLE ================= -->
+
+  <!-- Liquid Reservoir Interior Body -->
+  <rect x="235" y="380" width="330" height="460" rx="24" fill="url(#liquidGrad)" />
+
+  <!-- Liquid Meniscus & Shimmer -->
+  <path d="M 235 410 Q 400 425 565 410 L 565 820 Q 400 845 235 820 Z" fill="#C97A1E" opacity="0.25" />
+
+  <!-- Outer Heavy Crystal Glass Flacon -->
+  <rect x="220" y="350" width="360" height="510" rx="30" fill="rgba(217, 148, 57, 0.25)" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.6" />
+
+  <!-- Glass Bevels (Heavy Base Thickness) -->
+  <rect x="220" y="780" width="360" height="80" rx="20" fill="#FFFFFF" fill-opacity="0.15" />
+  <line x1="240" y1="780" x2="560" y2="780" stroke="#FFFFFF" stroke-width="1.5" stroke-opacity="0.5" />
+
+  <!-- Vertical Glass Specular Sheen (Studio Lighting) -->
+  <rect x="220" y="350" width="360" height="510" rx="30" fill="url(#glassSheen)" />
+
+  <!-- Left Sharp Studio Rim Light -->
+  <path d="M 230 370 L 230 840" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.75" />
+  <!-- Right Soft Studio Rim Light -->
+  <path d="M 570 370 L 570 840" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.55" />
+
+  <!-- Bottle Shoulder Neck (Crystal Collar) -->
+  <rect x="360" y="310" width="80" height="45" rx="8" fill="url(#glassSheen)" stroke="#FFFFFF" stroke-width="1.5" stroke-opacity="0.6" />
+
+  <!-- Heavy Gold Atomizer Collar & Sprayer Ring -->
+  <rect x="350" y="275" width="100" height="40" rx="6" fill="url(#capGrad)" stroke="#6E502B" stroke-width="1" />
+  <rect x="354" y="280" width="92" height="6" fill="#FFF5E4" opacity="0.6" />
+
+  <!-- Solid Premium Heavy Weighted Cap -->
+  <rect x="310" y="140" width="180" height="140" rx="14" fill="url(#capGrad)" stroke="#664E2E" stroke-width="1.5" />
+
+  <!-- Cap Fluting / Ribbing Details -->
+  <line x1="330" y1="140" x2="330" y2="280" stroke="#FFFFFF" stroke-width="1" opacity="0.4" />
+  <line x1="360" y1="140" x2="360" y2="280" stroke="#000000" stroke-width="1" opacity="0.25" />
+  <line x1="400" y1="140" x2="400" y2="280" stroke="#FFFFFF" stroke-width="1.5" opacity="0.6" />
+  <line x1="440" y1="140" x2="440" y2="280" stroke="#000000" stroke-width="1" opacity="0.25" />
+  <line x1="470" y1="140" x2="470" y2="280" stroke="#FFFFFF" stroke-width="1" opacity="0.4" />
+
+  <!-- Cap Crown Crest Medallion -->
+  <rect x="375" y="115" width="50" height="28" rx="6" fill="url(#capGrad)" />
+  <circle cx="400" cy="129" r="8" fill="#FFFFFF" opacity="0.4" />
+
+  <!-- ================= LUXURY EMBOSSED LABEL ================= -->
+  <g transform="translate(265, 450)">
+    <!-- Label Background (Cream Textured Paper) -->
+    <rect x="0" y="0" width="270" height="260" rx="8" fill="#FAF7F2" stroke="#DFCAAE" stroke-width="2" />
+
+    <!-- Inner Gold Foil Border Frame -->
+    <rect x="8" y="8" width="254" height="244" rx="4" fill="none" stroke="url(#goldFoil)" stroke-width="1.5" />
+    <rect x="12" y="12" width="246" height="236" rx="2" fill="none" stroke="#C5A880" stroke-width="0.75" stroke-dasharray="3 3" />
+
+    <!-- Brand Emblem -->
+    <path d="M 135 30 L 143 45 L 127 45 Z" fill="#9A7B54" />
+    <circle cx="135" cy="40" r="14" stroke="#9A7B54" stroke-width="1" fill="none" />
+    <text x="135" y="44" font-family="'Cinzel', serif" font-size="10" font-weight="700" fill="#9A7B54" text-anchor="middle">I</text>
+
+    <!-- Brand Name -->
+    <text x="135" y="75" font-family="'Cinzel', 'Playfair Display', serif" font-size="16" font-weight="800" fill="#0F0E0E" letter-spacing="4" text-anchor="middle">IDITZ</text>
+    <text x="135" y="92" font-family="'Plus Jakarta Sans', sans-serif" font-size="8" font-weight="600" fill="#8C6D46" letter-spacing="3" text-anchor="middle">PERFUME</text>
+
+    <!-- Gold Accent Line -->
+    <line x1="60" y1="104" x2="210" y2="104" stroke="url(#goldFoil)" stroke-width="1" />
+
+    <!-- Perfume Name -->
+    <text x="135" y="130" font-family="'Playfair Display', Georgia, serif" font-size="14" font-weight="700" fill="#1A1918" text-anchor="middle">KASHMIR SAFFRON</text>
+    <text x="135" y="150" font-family="'Playfair Display', Georgia, serif" font-size="11" font-weight="600" font-style="italic" fill="#8C6D46" text-anchor="middle">ROYAL AMBER</text>
+
+    <!-- Concentration -->
+    <text x="135" y="185" font-family="'Plus Jakarta Sans', sans-serif" font-size="8.5" font-weight="700" fill="#3F3C38" letter-spacing="2" text-anchor="middle">EXTRAIT DE PARFUM</text>
+    
+    <!-- Collection Origin Stamp -->
+    <rect x="40" y="202" width="190" height="20" rx="3" fill="#EFE8DF" />
+    <text x="135" y="215" font-family="'Plus Jakarta Sans', sans-serif" font-size="7.5" font-weight="600" fill="#6B5438" letter-spacing="1.5" text-anchor="middle">KASHMIR COLLECTION</text>
+
+    <text x="135" y="238" font-family="'Plus Jakarta Sans', sans-serif" font-size="7" font-weight="500" fill="#8C857B" letter-spacing="2" text-anchor="middle">100 ML • 3.4 FL. OZ. • HANDCRAFTED IN INDIA</text>
+  </g>
+
+  <!-- Front Bottle Glass Reflection Arc -->
+  <path d="M 235 370 Q 300 450 300 830" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.35" />
+</svg>

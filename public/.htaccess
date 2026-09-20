@@ -1,0 +1,17 @@
+# IDITZ PERFUME — Apache / cPanel / LiteSpeed Configuration (public directory)
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Allow direct access to existing files and directories
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Route non-file/directory requests to index.html (SPA routing)
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_URI} !^/api/
+  RewriteCond %{REQUEST_URI} !^/uploads/
+  RewriteRule . /index.html [L]
+</IfModule>

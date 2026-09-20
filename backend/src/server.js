@@ -58,9 +58,16 @@ app.get('/api/health', (req, res) => {
 // Mount main API router
 app.use('/api', apiRouter);
 
-// Serve built frontend assets in production (SPA single-service)
-const frontendDistPath = path.resolve(__dirname, '../../frontend/dist');
-if (fs.existsSync(frontendDistPath)) {
+// Serve built frontend assets in production (supports frontend/dist, public/, and cPanel structures)
+const potentialStaticPaths = [
+  path.resolve(__dirname, '../../frontend/dist'),
+  path.resolve(__dirname, '../../public'),
+  path.resolve(process.cwd(), 'frontend/dist'),
+  path.resolve(process.cwd(), 'public')
+];
+const frontendDistPath = potentialStaticPaths.find(p => fs.existsSync(p) && fs.existsSync(path.join(p, 'index.html')));
+
+if (frontendDistPath) {
   app.use(express.static(frontendDistPath));
 
   // SPA fallback for all unhandled client GET routes
@@ -71,11 +78,6 @@ if (fs.existsSync(frontendDistPath)) {
     res.sendFile(path.join(frontendDistPath, 'index.html'));
   });
 }
-
-// 404 handler for undefined API routes
-app.all('/api/*', (req, res) => {
-  res.status(404).json({ error: `API route not found: ${req.method} ${req.originalUrl}` });
-});
 
 // Global Error Handler
 app.use((err, req, res, next) => {

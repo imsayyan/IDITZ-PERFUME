@@ -1,0 +1,29 @@
+# IDITZ PERFUME — Apache / cPanel / LiteSpeed Configuration
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Allow direct access to existing files and directories (images, CSS, JS, uploads)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # If static SPA fallback is needed:
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_URI} !^/api/
+  RewriteCond %{REQUEST_URI} !^/uploads/
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Gzip Compression for Fast Loading
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
