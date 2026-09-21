@@ -7,7 +7,6 @@ import { FeaturedCollections } from '../components/FeaturedCollections';
 import { ProductCard } from '../components/ProductCard';
 import { QuickViewModal } from '../components/QuickViewModal';
 import { TrustBadges } from '../components/TrustBadges';
-import { Newsletter } from '../components/Newsletter';
 import { Footer } from '../components/Footer';
 import { CartDrawer } from '../components/CartDrawer';
 import { api } from '../services/api';
@@ -139,9 +138,6 @@ export const Home = () => {
 
         {/* Why Choose Us & Trust Badges */}
         <TrustBadges />
-
-        {/* Private Newsletter */}
-        <Newsletter />
       </main>
 
       <Footer />
