@@ -1,38 +1,40 @@
 @echo off
-title Starting IDITZ PERFUME...
+title IDITZ PERFUME Launcher
+cd /d "%~dp0"
+
 echo ========================================================
-echo        IDITZ PERFUME - Starting Full-Stack Application
+echo        IDITZ PERFUME - Starting Local Application
 echo ========================================================
 echo.
 
-set PATH=C:\Users\sayya\AppData\Local\Programs\nodejs;%PATH%
+set PATH=C:\Program Files\nodejs;C:\Users\sayya\AppData\Local\Programs\nodejs;%PATH%
 
-echo Checking Backend Server (Port 5000)...
+:: 1. Check & Start Backend (Port 5000)
 netstat -ano | findstr ":5000" >nul
 if %errorlevel% neq 0 (
-    echo Starting Backend on http://localhost:5000...
-    start "IDITZ Backend" /b powershell -WindowStyle Hidden -Command "$env:Path = 'C:\Users\sayya\AppData\Local\Programs\nodejs;' + $env:Path; Set-Location 'D:\Photo\Perfume 19\backend'; node src/server.js"
+    echo [1/3] Starting Backend API on port 5000...
+    start "IDITZ Backend" /min cmd /c "cd /d "%~dp0backend" && node src/server.js"
 ) else (
-    echo Backend is already running on port 5000.
+    echo [1/3] Backend is already running on port 5000.
 )
 
-echo Checking Frontend Server (Port 5173)...
+:: 2. Check & Start Frontend (Port 5173)
 netstat -ano | findstr ":5173" >nul
 if %errorlevel% neq 0 (
-    echo Starting Frontend on http://localhost:5173...
-    start "IDITZ Frontend" /b powershell -WindowStyle Hidden -Command "$env:Path = 'C:\Users\sayya\AppData\Local\Programs\nodejs;' + $env:Path; Set-Location 'D:\Photo\Perfume 19\frontend'; npm.cmd run dev"
+    echo [2/3] Starting Frontend Store on port 5173...
+    start "IDITZ Frontend" /min cmd /c "cd /d "%~dp0frontend" && npm.cmd run dev"
 ) else (
-    echo Frontend is already running on port 5173.
+    echo [2/3] Frontend is already running on port 5173.
 )
 
-echo.
-echo Waiting 2 seconds for servers to ready...
-timeout /t 2 /nobreak >nul
+:: 3. Wait until server responds HTTP 200 before opening browser
+echo [3/3] Waiting for website to be fully ready...
+powershell -NoProfile -Command "for ($i=0; $i -lt 30; $i++) { try { $res = Invoke-WebRequest -Uri 'http://localhost:5173' -UseBasicParsing -TimeoutSec 1; if ($res.StatusCode -eq 200) { exit 0 } } catch {}; Start-Sleep -Milliseconds 600 }; exit 1"
 
-echo Opening IDITZ PERFUME in browser: http://localhost:5173
+echo.
+echo ========================================================
+echo   ✨ IDITZ PERFUME is live! Opening browser...
+echo ========================================================
+echo.
 start http://localhost:5173
-
-echo.
-echo ========================================================
-echo IDITZ PERFUME is live at http://localhost:5173
-echo ========================================================
+timeout /t 3 >nul
