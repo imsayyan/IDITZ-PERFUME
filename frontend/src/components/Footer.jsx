@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSettings } from '../context/SettingsContext';
-import { MapPin, Phone, Mail, MessageCircle, Check, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, Mail, MessageCircle } from 'lucide-react';
 
 const cleanWhatsappNumber = (num) => {
   if (!num) return '919986324619';
@@ -31,24 +31,11 @@ const FacebookIcon = ({ className }) => (
 
 export const Footer = () => {
   const { settings } = useSettings();
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-
   const brandName = settings.brand_name || 'IDITZ PERFUME';
   const whatsappNumber = cleanWhatsappNumber(settings.whatsapp_number || '9986324619');
   const storePhone = settings.store_phone || '+91 99863 24619';
   const storeEmail = settings.store_email || 'concierge@iditzperfume.com';
   const storeAddress = settings.store_address || 'IDITZ Atelier, Bangalore South';
-
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (!email || !email.includes('@')) return;
-    setSubscribed(true);
-    setTimeout(() => {
-      setEmail('');
-      setSubscribed(false);
-    }, 4500);
-  };
 
   return (
     <footer className="bg-[#0b0a09] text-luxury-ivory border-t border-luxury-gold/30 pt-16 pb-10">
@@ -255,47 +242,8 @@ export const Footer = () => {
 
         </div>
 
-        {/* STAY IN THE SCENT Newsletter Section */}
-        <div className="py-8 border-t border-luxury-gold/20">
-          <div className="max-w-2xl mx-auto text-center space-y-3">
-            <h4 className="text-xs font-semibold tracking-wide-luxury uppercase text-luxury-gold">
-              STAY IN THE SCENT
-            </h4>
-            <p className="text-xs text-luxury-ivory/70 font-light">
-              Receive private invitations, olfactory archives & limited batch releases.
-            </p>
-
-            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto pt-2">
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email Address"
-                className="flex-1 bg-white/10 border border-luxury-gold/40 text-xs px-4 py-2.5 text-luxury-ivory placeholder:text-luxury-ivory/40 focus:outline-none focus:border-luxury-gold"
-              />
-              <button
-                type="submit"
-                className="luxury-btn-primary text-xs py-2.5 px-6 whitespace-nowrap flex items-center justify-center gap-1.5"
-              >
-                {subscribed ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Subscribed</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Subscribe</span>
-                    <ArrowRight className="w-3 h-3 text-luxury-gold" />
-                  </>
-                )}
-              </button>
-            </form>
-          </div>
-        </div>
-
         {/* Divider Line */}
-        <div className="h-[1px] bg-gradient-to-r from-transparent via-luxury-gold/40 to-transparent my-6" />
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-luxury-gold/40 to-transparent mb-8" />
 
         {/* Bottom Bar: Copyright & Policies */}
         <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-luxury-ivory/60 font-light gap-4 text-center sm:text-left">
