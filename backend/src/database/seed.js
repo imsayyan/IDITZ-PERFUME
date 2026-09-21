@@ -22,7 +22,7 @@ export async function seedDatabase() {
     ['store_email', 'concierge@iditzperfume.com'],
     ['store_phone', '+91 98765 43210'],
     ['whatsapp_number', '919876543210'],
-    ['store_address', 'IDITZ Atelier, Heritage Quarter, Mumbai & Jaipur'],
+    ['store_address', 'IDITZ Atelier, Bangalore South'],
     ['shipping_charge', '150'],
     ['free_shipping_threshold', '999'],
     ['cod_available', '1'],

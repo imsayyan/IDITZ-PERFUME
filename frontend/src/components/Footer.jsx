@@ -176,7 +176,7 @@ export const Footer = () => {
             <div className="space-y-2.5 text-xs text-luxury-ivory/75 font-light">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-luxury-gold flex-shrink-0 mt-0.5" />
-                <span>{settings.store_address || 'IDITZ Atelier, Heritage Quarter'}</span>
+                <span>{settings.store_address || 'IDITZ Atelier, Bangalore South'}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-luxury-gold flex-shrink-0" />
