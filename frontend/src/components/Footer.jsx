@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSettings } from '../context/SettingsContext';
-import { Phone, Mail, MessageCircle, MapPin } from 'lucide-react';
+import { MapPin, Phone, Mail, MessageCircle, Check, ArrowRight } from 'lucide-react';
+
+const cleanWhatsappNumber = (num) => {
+  if (!num) return '919986324619';
+  const clean = String(num).replace(/[^0-9]/g, '');
+  if (clean.length === 10) return `91${clean}`;
+  return clean;
+};
+
+const cleanPhoneNumber = (num) => {
+  if (!num) return '+919986324619';
+  return String(num).replace(/\s+/g, '');
+};
 
 const InstagramIcon = ({ className }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -17,206 +29,300 @@ const FacebookIcon = ({ className }) => (
   </svg>
 );
 
-const cleanWhatsappNumber = (num) => {
-  if (!num) return '919986324619';
-  const clean = String(num).replace(/[^0-9]/g, '');
-  if (clean.length === 10) return `91${clean}`;
-  return clean;
-};
-
 export const Footer = () => {
   const { settings } = useSettings();
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
 
   const brandName = settings.brand_name || 'IDITZ PERFUME';
   const whatsappNumber = cleanWhatsappNumber(settings.whatsapp_number || '9986324619');
+  const storePhone = settings.store_phone || '+91 99863 24619';
+  const storeEmail = settings.store_email || 'concierge@iditzperfume.com';
+  const storeAddress = settings.store_address || 'IDITZ Atelier, Bangalore South';
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (!email || !email.includes('@')) return;
+    setSubscribed(true);
+    setTimeout(() => {
+      setEmail('');
+      setSubscribed(false);
+    }, 4500);
+  };
 
   return (
-    <footer className="bg-luxury-black text-luxury-ivory border-t border-luxury-gold/30 pt-16 pb-12">
+    <footer className="bg-[#0b0a09] text-luxury-ivory border-t border-luxury-gold/30 pt-16 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Top Brand Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-14 border-b border-luxury-gold/20">
+        {/* Top 4-Column Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 pb-14">
           
-          {/* Col 1 & 2: Brand Heritage */}
-          <div className="lg:col-span-2 space-y-4">
-            <Link to="/" className="inline-flex items-center gap-3.5 group">
+          {/* COLUMN 1: IDITZ PERFUME */}
+          <div className="space-y-4">
+            <Link to="/" className="inline-flex items-center gap-3 group">
               <img
                 src="/iditz-logo.jpg"
                 alt={brandName}
-                className="w-12 h-12 rounded-full object-cover border border-luxury-gold/50 shadow-md group-hover:border-luxury-gold transition-colors"
+                className="w-11 h-11 rounded-full object-cover border border-luxury-gold/50 shadow-md group-hover:border-luxury-gold transition-colors"
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
               />
               <div>
-                <span className="font-display font-extrabold tracking-[0.22em] text-xl sm:text-2xl text-white block leading-tight">
+                <h3 className="font-display font-extrabold tracking-[0.2em] text-lg sm:text-xl text-white block leading-tight">
                   {brandName}
-                </span>
-                <span className="text-[9px] tracking-[0.3em] text-luxury-gold uppercase font-semibold block mt-1">
-                  MORE THAN A FRAGRANCE • INDIA
+                </h3>
+                <span className="text-[9px] tracking-[0.25em] text-luxury-gold uppercase font-semibold block mt-0.5">
+                  More Than A Fragrance • India
                 </span>
               </div>
             </Link>
 
-            <p className="text-xs text-luxury-ivory/70 font-light leading-relaxed max-w-sm">
-              Artisanal Indian fragrances handcrafted in small batches using ancient hydro-distillation in Kannauj and aged in sandalwood flacons. Formulated for the connoisseurs of fine living.
+            <p className="text-xs text-luxury-ivory/70 font-light leading-relaxed">
+              Artisanal Indian haute parfumerie handcrafted in small batches using ancient hydro-distillation and aged botanical extraits for fine living connoisseurs.
             </p>
 
-            <div className="pt-2 flex items-center space-x-3">
+            {/* Social Icons */}
+            <div className="pt-2 flex items-center space-x-2.5">
               <a
                 href={settings.instagram_url || 'https://instagram.com/iditzperfume'}
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 border border-luxury-gold/30 hover:border-luxury-gold text-luxury-gold flex items-center justify-center transition-colors"
+                className="w-8 h-8 border border-luxury-gold/30 hover:border-luxury-gold text-luxury-gold flex items-center justify-center transition-colors hover:bg-luxury-gold/10"
                 aria-label="Instagram"
               >
-                <InstagramIcon className="w-4 h-4" />
+                <InstagramIcon className="w-3.5 h-3.5" />
               </a>
               <a
                 href={settings.facebook_url || 'https://facebook.com/iditzperfume'}
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 border border-luxury-gold/30 hover:border-luxury-gold text-luxury-gold flex items-center justify-center transition-colors"
+                className="w-8 h-8 border border-luxury-gold/30 hover:border-luxury-gold text-luxury-gold flex items-center justify-center transition-colors hover:bg-luxury-gold/10"
                 aria-label="Facebook"
               >
-                <FacebookIcon className="w-4 h-4" />
+                <FacebookIcon className="w-3.5 h-3.5" />
               </a>
               <a
-                href={`https://wa.me/${whatsappNumber}?text=Greetings%2C%20I%20would%20like%20to%20inquire%20about%20IDITZ%20Perfume`}
+                href={`https://wa.me/${whatsappNumber}?text=Greetings%20IDITZ%20Concierge%2C%20I%20would%20like%20to%20inquire%20about%20IDITZ%20Perfumes`}
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 border border-luxury-gold/30 hover:border-luxury-gold text-luxury-gold flex items-center justify-center transition-colors"
+                className="w-8 h-8 border border-luxury-gold/30 hover:border-luxury-gold text-luxury-gold flex items-center justify-center transition-colors hover:bg-luxury-gold/10"
                 aria-label="WhatsApp Concierge"
               >
-                <MessageCircle className="w-4 h-4" />
+                <MessageCircle className="w-3.5 h-3.5" />
               </a>
             </div>
           </div>
 
-          {/* Col 3: Shop */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-semibold tracking-wide-luxury uppercase text-luxury-gold">
-              Olfactory Realms
+          {/* COLUMN 2: SHOP */}
+          <div className="space-y-4">
+            <h4 className="text-xs font-semibold tracking-wide-luxury uppercase text-luxury-gold border-b border-luxury-gold/20 pb-2">
+              SHOP
             </h4>
-            <ul className="space-y-2 text-xs text-luxury-ivory/70 font-light">
+            <ul className="space-y-2.5 text-xs text-luxury-ivory/75 font-light">
               <li>
-                <Link to="/shop" className="hover:text-luxury-gold transition-colors">
-                  All Fragrances
+                <Link to="/shop" className="hover:text-luxury-gold transition-colors block">
+                  All Perfumes
                 </Link>
               </li>
               <li>
-                <Link to="/shop?gender=men" className="hover:text-luxury-gold transition-colors">
-                  Men's Extrait
+                <Link to="/shop?gender=men" className="hover:text-luxury-gold transition-colors block">
+                  Men
                 </Link>
               </li>
               <li>
-                <Link to="/shop?gender=women" className="hover:text-luxury-gold transition-colors">
-                  Women's Flacons
+                <Link to="/shop?gender=women" className="hover:text-luxury-gold transition-colors block">
+                  Women
                 </Link>
               </li>
               <li>
-                <Link to="/shop?gender=unisex" className="hover:text-luxury-gold transition-colors">
-                  Unisex Elixirs
+                <Link to="/shop?gender=unisex" className="hover:text-luxury-gold transition-colors block">
+                  Unisex
                 </Link>
               </li>
               <li>
-                <Link to="/shop?fragrance_family=Oud" className="hover:text-luxury-gold transition-colors">
-                  Royal Assam Oud
+                <Link to="/shop?is_bestseller=1" className="hover:text-luxury-gold transition-colors block">
+                  Best Sellers
                 </Link>
               </li>
               <li>
-                <Link to="/shop?category=attar" className="hover:text-luxury-gold transition-colors">
-                  Heritage Attar Oils
+                <Link to="/shop?sortBy=newest" className="hover:text-luxury-gold transition-colors block">
+                  New Arrivals
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 4: The House & Customer Care */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-semibold tracking-wide-luxury uppercase text-luxury-gold">
-              Client Care & Policies
+          {/* COLUMN 3: CUSTOMER CARE */}
+          <div className="space-y-4">
+            <h4 className="text-xs font-semibold tracking-wide-luxury uppercase text-luxury-gold border-b border-luxury-gold/20 pb-2">
+              CUSTOMER CARE
             </h4>
-            <ul className="space-y-2 text-xs text-luxury-ivory/70 font-light">
+            <ul className="space-y-2.5 text-xs text-luxury-ivory/75 font-light">
               <li>
-                <Link to="/about" className="hover:text-luxury-gold transition-colors">
-                  The IDITZ Heritage
+                <Link to="/contact" className="hover:text-luxury-gold transition-colors block">
+                  Contact Us
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-luxury-gold transition-colors">
-                  Atelier Concierge
+                <Link to="/policies?tab=shipping" className="hover:text-luxury-gold transition-colors block">
+                  Shipping
                 </Link>
               </li>
               <li>
-                <Link to="/policies?tab=shipping" className="hover:text-luxury-gold transition-colors">
-                  Pan-India Shipping Policy
+                <Link to="/policies?tab=shipping" className="hover:text-luxury-gold transition-colors block">
+                  Track Order
                 </Link>
               </li>
               <li>
-                <Link to="/policies?tab=refund" className="hover:text-luxury-gold transition-colors">
-                  Refund & Bottle Replacement
+                <Link to="/policies?tab=refund" className="hover:text-luxury-gold transition-colors block">
+                  Returns
                 </Link>
               </li>
               <li>
-                <Link to="/policies?tab=privacy" className="hover:text-luxury-gold transition-colors">
-                  Privacy Governance
+                <Link to="/policies?tab=privacy" className="hover:text-luxury-gold transition-colors block">
+                  Privacy
                 </Link>
               </li>
               <li>
-                <Link to="/policies?tab=terms" className="hover:text-luxury-gold transition-colors">
-                  Terms of Haute Parfumerie
+                <Link to="/policies?tab=terms" className="hover:text-luxury-gold transition-colors block">
+                  FAQ
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 5: Ateliers & Concierge */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-semibold tracking-wide-luxury uppercase text-luxury-gold">
-              Private Concierge
+          {/* COLUMN 4: CONTACT */}
+          <div className="space-y-4">
+            <h4 className="text-xs font-semibold tracking-wide-luxury uppercase text-luxury-gold border-b border-luxury-gold/20 pb-2">
+              CONTACT
             </h4>
-            <div className="space-y-2.5 text-xs text-luxury-ivory/75 font-light">
-              <div className="flex items-start gap-2">
+            <div className="space-y-3 text-xs text-luxury-ivory/80 font-light">
+              
+              {/* Atelier Address */}
+              <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-luxury-gold flex-shrink-0 mt-0.5" />
-                <span>{settings.store_address || 'IDITZ Atelier, Bangalore South'}</span>
+                <div>
+                  <span className="text-[10px] text-luxury-gold/80 uppercase tracking-wider font-semibold block">IDITZ Atelier</span>
+                  <span className="leading-relaxed">{storeAddress}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
+
+              {/* Phone */}
+              <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-luxury-gold flex-shrink-0" />
-                <span>{settings.store_phone || '+91 98765 43210'}</span>
+                <div>
+                  <span className="text-[10px] text-luxury-gold/80 uppercase tracking-wider font-semibold block">Phone</span>
+                  <a
+                    href={`tel:${cleanPhoneNumber(storePhone)}`}
+                    className="hover:text-luxury-gold transition-colors"
+                  >
+                    {storePhone}
+                  </a>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
+
+              {/* Email */}
+              <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-luxury-gold flex-shrink-0" />
-                <span>{settings.store_email || 'concierge@iditzperfume.com'}</span>
+                <div>
+                  <span className="text-[10px] text-luxury-gold/80 uppercase tracking-wider font-semibold block">Email</span>
+                  <a
+                    href={`mailto:${storeEmail}`}
+                    className="hover:text-luxury-gold transition-colors break-all"
+                  >
+                    {storeEmail}
+                  </a>
+                </div>
               </div>
-              <div className="pt-2">
-                <a
-                  href={`https://wa.me/${whatsappNumber}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-950 border border-emerald-700 text-emerald-300 text-[11px] font-semibold tracking-wider hover:bg-emerald-900 transition-colors"
-                >
-                  <MessageCircle className="w-3.5 h-3.5" /> Direct WhatsApp Chat
-                </a>
+
+              {/* WhatsApp */}
+              <div className="flex items-center gap-2.5 pt-1">
+                <MessageCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                <div>
+                  <span className="text-[10px] text-emerald-400 uppercase tracking-wider font-semibold block">WhatsApp</span>
+                  <a
+                    href={`https://wa.me/${whatsappNumber}?text=Greetings%20IDITZ%20Concierge%2C%20I%20would%20like%20to%20inquire%20about%20IDITZ%20Perfumes`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:text-emerald-300 transition-colors underline font-medium"
+                  >
+                    Chat on WhatsApp →
+                  </a>
+                </div>
               </div>
+
             </div>
           </div>
 
         </div>
 
-        {/* Bottom Copyright & INR Note */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-luxury-ivory/50 font-light gap-4">
-          <p>© {new Date().getFullYear()} {brandName}. All Rights Reserved. Mastercrafted in India.</p>
-          <div className="flex items-center gap-4">
-            <span>Prices displayed in Indian Rupees (₹ INR)</span>
-            <span>•</span>
-            <button
-              type="button"
-              onClick={() => window.dispatchEvent(new CustomEvent('play-iditz-intro'))}
-              className="hover:text-luxury-gold transition-colors text-luxury-gold/70"
-            >
-              Replay Intro
-            </button>
-            <span>•</span>
+        {/* STAY IN THE SCENT Newsletter Section */}
+        <div className="py-8 border-t border-luxury-gold/20">
+          <div className="max-w-2xl mx-auto text-center space-y-3">
+            <h4 className="text-xs font-semibold tracking-wide-luxury uppercase text-luxury-gold">
+              STAY IN THE SCENT
+            </h4>
+            <p className="text-xs text-luxury-ivory/70 font-light">
+              Receive private invitations, olfactory archives & limited batch releases.
+            </p>
+
+            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto pt-2">
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email Address"
+                className="flex-1 bg-white/10 border border-luxury-gold/40 text-xs px-4 py-2.5 text-luxury-ivory placeholder:text-luxury-ivory/40 focus:outline-none focus:border-luxury-gold"
+              />
+              <button
+                type="submit"
+                className="luxury-btn-primary text-xs py-2.5 px-6 whitespace-nowrap flex items-center justify-center gap-1.5"
+              >
+                {subscribed ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Subscribed</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Subscribe</span>
+                    <ArrowRight className="w-3 h-3 text-luxury-gold" />
+                  </>
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
+
+        {/* Divider Line */}
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-luxury-gold/40 to-transparent my-6" />
+
+        {/* Bottom Bar: Copyright & Policies */}
+        <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-luxury-ivory/60 font-light gap-4 text-center sm:text-left">
+          <div className="space-y-0.5">
+            <p className="text-luxury-ivory/90 font-medium">
+              © {new Date().getFullYear()} {brandName}
+            </p>
+            <p className="text-[11px] text-luxury-ivory/50">
+              Made in India • Prices in INR (₹)
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-[11.5px]">
+            <Link to="/policies?tab=privacy" className="hover:text-luxury-gold transition-colors">
+              Privacy
+            </Link>
+            <span className="text-luxury-gold/40">•</span>
+            <Link to="/policies?tab=terms" className="hover:text-luxury-gold transition-colors">
+              Terms
+            </Link>
+            <span className="text-luxury-gold/40">•</span>
+            <Link to="/policies?tab=refund" className="hover:text-luxury-gold transition-colors">
+              Returns
+            </Link>
+            <span className="text-luxury-gold/40">•</span>
             <Link to="/admin" className="hover:text-luxury-gold transition-colors text-luxury-goldDark">
-              Administrative Suite
+              Admin
             </Link>
           </div>
         </div>
@@ -225,3 +331,5 @@ export const Footer = () => {
     </footer>
   );
 };
+
+export default Footer;
